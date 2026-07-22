@@ -1,0 +1,36 @@
+<%- include('partials/header', { title: 'Register' }) %>
+
+<div class="auth-container">
+  <div class="card">
+    <h1>Create Account</h1>
+    <p>Register a new church staff account</p>
+    <form action="/auth/register" method="POST">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="fullName" placeholder="Enter full name" required>
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Choose a username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Choose a password" required>
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <select name="role">
+          <option value="staff">Staff</option>
+          <option value="pastor">Pastor</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Register</button>
+    </form>
+    <div class="auth-link">
+      Already have an account? <a href="/auth/login">Login here</a>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

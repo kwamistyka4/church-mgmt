@@ -1,0 +1,88 @@
+<%- include('../partials/header', { title: 'Edit Member' }) %>
+
+<div class="container">
+  <div class="card-header">
+    <h2>Edit Member</h2>
+    <a href="/members" class="btn btn-secondary">← Back to Members</a>
+  </div>
+
+  <div class="card">
+    <form action="/members/<%= member._id %>/edit" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input type="text" name="firstName" value="<%= member.firstName %>" required>
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input type="text" name="lastName" value="<%= member.lastName %>" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" value="<%= member.email || '' %>">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" name="phone" value="<%= member.phone || '' %>">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" name="address" value="<%= member.address || '' %>">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Gender</label>
+          <select name="gender">
+            <option value="">-- Select --</option>
+            <option value="male" <%= member.gender === 'male' ? 'selected' : '' %>>Male</option>
+            <option value="female" <%= member.gender === 'female' ? 'selected' : '' %>>Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" name="dateOfBirth" value="<%= member.dateOfBirth ? member.dateOfBirth.toISOString().split('T')[0] : '' %>">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Marital Status</label>
+          <select name="maritalStatus">
+            <option value="">-- Select --</option>
+            <option value="single" <%= member.maritalStatus === 'single' ? 'selected' : '' %>>Single</option>
+            <option value="married" <%= member.maritalStatus === 'married' ? 'selected' : '' %>>Married</option>
+            <option value="divorced" <%= member.maritalStatus === 'divorced' ? 'selected' : '' %>>Divorced</option>
+            <option value="widowed" <%= member.maritalStatus === 'widowed' ? 'selected' : '' %>>Widowed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Department</label>
+          <input type="text" name="department" value="<%= member.department || '' %>">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Baptism Date</label>
+          <input type="date" name="baptismDate" value="<%= member.baptismDate ? member.baptismDate.toISOString().split('T')[0] : '' %>">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea name="notes" rows="3"><%= member.notes || '' %></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Member</button>
+      <a href="/members" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

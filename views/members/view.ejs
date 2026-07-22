@@ -1,0 +1,68 @@
+<%- include('../partials/header', { title: member.firstName + ' ' + member.lastName }) %>
+
+<div class="container">
+  <div class="card-header">
+    <h2><%= member.firstName %> <%= member.lastName %></h2>
+    <div>
+      <a href="/members/<%= member._id %>/edit" class="btn btn-primary">Edit</a>
+      <form action="/members/<%= member._id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this member?')">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      <a href="/members" class="btn btn-secondary">← Back</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="label">Full Name</div>
+        <div class="value"><%= member.firstName %> <%= member.lastName %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Email</div>
+        <div class="value"><%= member.email || 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Phone</div>
+        <div class="value"><%= member.phone || 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Address</div>
+        <div class="value"><%= member.address || 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Gender</div>
+        <div class="value"><%= member.gender ? member.gender.charAt(0).toUpperCase() + member.gender.slice(1) : 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Date of Birth</div>
+        <div class="value"><%= member.dateOfBirth ? member.dateOfBirth.toISOString().split('T')[0] : 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Marital Status</div>
+        <div class="value"><%= member.maritalStatus ? member.maritalStatus.charAt(0).toUpperCase() + member.maritalStatus.slice(1) : 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Department</div>
+        <div class="value"><%= member.department || 'Not assigned' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Baptism Date</div>
+        <div class="value"><%= member.baptismDate ? member.baptismDate.toISOString().split('T')[0] : 'Not provided' %></div>
+      </div>
+      <div class="detail-item">
+        <div class="label">Added On</div>
+        <div class="value"><%= member.createdAt ? member.createdAt.toISOString().split('T')[0] : 'Unknown' %></div>
+      </div>
+    </div>
+
+    <% if (member.notes) { %>
+      <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #ecf0f1;">
+        <div class="label" style="margin-bottom: 0.5rem;">Notes</div>
+        <div style="color: #2c3e50; line-height: 1.6;"><%= member.notes %></div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

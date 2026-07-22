@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Church Management System' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<% if (user) { %>
+<nav class="navbar">
+  <a href="/members" class="brand">DWAD L200 Church Management System</a>
+  <ul class="nav-links">
+    <li><a href="/members">Members</a></li>
+    <li><a href="/members/create">+ Add Member</a></li>
+    <li><a href="/settings">Settings</a></li>
+    <li><span style="color:#bdc3c7">|</span></li>
+    <li><span style="color:#f39c12; font-size:0.85rem"><%= user.role %></span></li>
+    <li><span style="color:#ecf0f1; font-size:0.9rem"><%= user.fullName || user.username %></span></li>
+    <li><a href="/auth/logout" class="logout">Logout</a></li>
+  </ul>
+</nav>
+<% } %>
+
+<main>
+  <% if (error) { %>
+    <div class="container">
+      <div class="alert alert-error"><%= error %></div>
+    </div>
+  <% } %>
+  <% if (success) { %>
+    <div class="container">
+      <div class="alert alert-success"><%= success %></div>
+    </div>
+  <% } %>

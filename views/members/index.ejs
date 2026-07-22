@@ -1,0 +1,81 @@
+<%- include('../partials/header', { title: 'Members' }) %>
+
+<div class="container">
+  <div class="card-header">
+    <h2>Church Members</h2>
+    <a href="/members/create" class="btn btn-primary">+ Add New Member</a>
+  </div>
+
+  <form class="search-bar" method="GET" action="/members">
+    <input type="text" name="search" placeholder="Search by name, email, or phone..." value="<%= search %>">
+    <input type="text" name="department" placeholder="Filter by department..." value="<%= department %>" style="max-width:200px">
+    <button type="submit" class="btn btn-primary">Search</button>
+    <% if (search || department) { %>
+      <a href="/members" class="btn btn-secondary">Clear</a>
+    <% } %>
+  </form>
+
+  <div class="card">
+    <% if (members.length === 0) { %>
+      <div class="empty-state">
+        <p>No members found.</p>
+        <a href="/members/create" class="btn btn-primary">Add Your First Member</a>
+      </div>
+    <% } else { %>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Department</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% members.forEach(function(member) { %>
+              <tr>
+                <td>
+                  <a href="/members/<%= member._id %>"><%= member.firstName %> <%= member.lastName %></a>
+                </td>
+                <td><%= member.email || '-' %></td>
+                <td><%= member.phone || '-' %></td>
+                <td><%= member.department || '-' %></td>
+                <td>
+                  <div class="actions">
+                    <a href="/members/<%= member._id %>" class="btn btn-sm btn-primary">View</a>
+                    <a href="/members/<%= member._id %>/edit" class="btn btn-sm btn-secondary">Edit</a>
+                    <form action="/members/<%= member._id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Delete this member?')">
+                      <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if (totalPages > 1) { %>
+        <div class="pagination">
+          <% if (currentPage > 1) { %>
+            <a href="/members?page=<%= currentPage - 1 %>&search=<%= search %>&department=<%= department %>">« Prev</a>
+          <% } %>
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (i === currentPage) { %>
+              <span class="active"><%= i %></span>
+            <% } else { %>
+              <a href="/members?page=<%= i %>&search=<%= search %>&department=<%= department %>"><%= i %></a>
+            <% } %>
+          <% } %>
+          <% if (currentPage < totalPages) { %>
+            <a href="/members?page=<%= currentPage + 1 %>&search=<%= search %>&department=<%= department %>">Next »</a>
+          <% } %>
+        </div>
+      <% } %>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
