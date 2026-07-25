@@ -1,4 +1,4 @@
-require('dotenv').config();
+try { require('dotenv').config() } catch(e) {}
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -59,11 +59,11 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB and start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/church_management')
   .then(() => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
   })
